@@ -94,17 +94,29 @@
 
 
 
-  <meta name="description" content="普通技术死肥宅">
-<meta name="keywords" content="free java linux">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sakura走过的路">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="愿景：”让编程不在难学，让技术与生活更加有趣” 更多教程请访问 xdclass.net  第1章 JVM课程学习说明书第1集 互联网架构之JAVA虚拟机课程介绍 JVM学习的必要性、优先级 团队介绍 知识介绍   愿景：”让编程不在难学，让技术与生活更加有趣”  第2章 开门见山大厂面试题之运行时数据区第1集 大厂高频面试题Java内存区域分布与概述简介：JVM内存模型的概述  Java语言为甚">
+<meta name="keywords" content="jvm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jvm学习笔记">
+<meta property="og:url" content="http://yoursite.com/2019/06/27/jvm学习笔记/index.html">
 <meta property="og:site_name" content="Sakura走过的路">
-<meta property="og:description" content="普通技术死肥宅">
+<meta property="og:description" content="愿景：”让编程不在难学，让技术与生活更加有趣” 更多教程请访问 xdclass.net  第1章 JVM课程学习说明书第1集 互联网架构之JAVA虚拟机课程介绍 JVM学习的必要性、优先级 团队介绍 知识介绍   愿景：”让编程不在难学，让技术与生活更加有趣”  第2章 开门见山大厂面试题之运行时数据区第1集 大厂高频面试题Java内存区域分布与概述简介：JVM内存模型的概述  Java语言为甚">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=">
+<meta property="og:image" content="https://xdclass-html-prod.oss-cn-shenzhen.aliyuncs.com/Users/daniel/Desktop/image-20190604231315067.png">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=">
+<meta property="og:updated_time" content="2019-06-27T09:56:48.863Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sakura走过的路">
-<meta name="twitter:description" content="普通技术死肥宅">
+<meta name="twitter:title" content="jvm学习笔记">
+<meta name="twitter:description" content="愿景：”让编程不在难学，让技术与生活更加有趣” 更多教程请访问 xdclass.net  第1章 JVM课程学习说明书第1集 互联网架构之JAVA虚拟机课程介绍 JVM学习的必要性、优先级 团队介绍 知识介绍   愿景：”让编程不在难学，让技术与生活更加有趣”  第2章 开门见山大厂面试题之运行时数据区第1集 大厂高频面试题Java内存区域分布与概述简介：JVM内存模型的概述  Java语言为甚">
+<meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=">
 
 
 
@@ -112,7 +124,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/27/jvm学习笔记/">
 
 
 
@@ -122,7 +134,7 @@
   };
 </script>
 
-  <title>Sakura走过的路</title>
+  <title>jvm学习笔记 | Sakura走过的路</title>
   
 
 
@@ -170,8 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -213,7 +224,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -305,169 +316,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/27/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sakura">
-      <meta itemprop="description" content="普通技术死肥宅">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sakura走过的路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/27/hello-world/" class="post-title-link" itemprop="url">hello,world</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-27 17:57:52 / 修改时间：17:58:34" itemprop="dateCreated datePublished" datetime="2019-06-27T17:57:52+08:00">2019-06-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello,World"></a>Hello,World</h1>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -499,10 +350,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/27/jvm学习笔记/" class="post-title-link" itemprop="url">jvm学习笔记</a>
+          <h1 class="post-title" itemprop="name headline">jvm学习笔记
+
               
             
           </h1>
@@ -584,9 +433,7 @@
       
 
       
-        
-          
-            <p><strong><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=" alt="å°Dè¯¾å "> 愿景：”让编程不在难学，让技术与生活更加有趣” 更多教程请访问</strong> xdclass.net</p>
+        <p><strong><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=" alt="å°Dè¯¾å "> 愿景：”让编程不在难学，让技术与生活更加有趣” 更多教程请访问</strong> xdclass.net</p>
 <hr>
 <h2 id="第1章-JVM课程学习说明书"><a href="#第1章-JVM课程学习说明书" class="headerlink" title="第1章 JVM课程学习说明书"></a>第1章 JVM课程学习说明书</h2><h3 id="第1集-互联网架构之JAVA虚拟机课程介绍"><a href="#第1集-互联网架构之JAVA虚拟机课程介绍" class="headerlink" title="第1集 互联网架构之JAVA虚拟机课程介绍"></a>第1集 互联网架构之JAVA虚拟机课程介绍</h3><ul>
 <li>JVM学习的必要性、优先级</li>
@@ -1605,8 +1452,6 @@
 <p><strong>重点来啦：免费赠送你干货文档大集合</strong>，包含前端，后端，测试，大数据，运维主流技术文档（持续更新）</p>
 <p><a href="https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ</a></p>
 
-          
-        
       
     </div>
 
@@ -1627,14 +1472,39 @@
 
     <footer class="post-footer">
       
-
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/jvm/" rel="tag"># jvm</a>
+          
+        </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/27/hello-world/" rel="prev" title="hello,world">
+                hello,world <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </div>
@@ -1644,14 +1514,15 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -1671,8 +1542,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1754,6 +1634,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-JVM课程学习说明书"><span class="nav-number">1.</span> <span class="nav-text">第1章 JVM课程学习说明书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1集-互联网架构之JAVA虚拟机课程介绍"><span class="nav-number">1.1.</span> <span class="nav-text">第1集 互联网架构之JAVA虚拟机课程介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章-开门见山大厂面试题之运行时数据区"><span class="nav-number">2.</span> <span class="nav-text">第2章 开门见山大厂面试题之运行时数据区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1集-大厂高频面试题Java内存区域分布与概述"><span class="nav-number">2.1.</span> <span class="nav-text">第1集 大厂高频面试题Java内存区域分布与概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2集-动手实战Java内存区域程序计算器"><span class="nav-number">2.2.</span> <span class="nav-text">第2集 动手实战Java内存区域程序计算器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第3集-动手实战Java内存区域JAVA虚拟机栈"><span class="nav-number">2.3.</span> <span class="nav-text">第3集 动手实战Java内存区域JAVA虚拟机栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第4集-动手实战Java内存区域本地方法栈"><span class="nav-number">2.4.</span> <span class="nav-text">第4集 动手实战Java内存区域本地方法栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第5集-动手实战Java内存区域Java堆"><span class="nav-number">2.5.</span> <span class="nav-text">第5集 动手实战Java内存区域Java堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第6集-动手实战Java内存区域方法区"><span class="nav-number">2.6.</span> <span class="nav-text">第6集 动手实战Java内存区域方法区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第7集-带你用上神秘的运行时常量池"><span class="nav-number">2.7.</span> <span class="nav-text">第7集 带你用上神秘的运行时常量池</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3章-你真的了解对象吗？"><span class="nav-number">3.</span> <span class="nav-text">第3章 你真的了解对象吗？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1集-你的对象是怎么来的？"><span class="nav-number">3.1.</span> <span class="nav-text">第1集 你的对象是怎么来的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2集-new这么多对象，你知道它们的结构吗？"><span class="nav-number">3.2.</span> <span class="nav-text">第2集 new这么多对象，你知道它们的结构吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第3集-你是怎么访问你的对象的"><span class="nav-number">3.3.</span> <span class="nav-text">第3集 你是怎么访问你的对象的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第4章-内功深厚招数才易懂垃圾回收算法"><span class="nav-number">4.</span> <span class="nav-text">第4章 内功深厚招数才易懂垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1集-你不得不懂的GC垃圾回收？"><span class="nav-number">4.1.</span> <span class="nav-text">第1集 你不得不懂的GC垃圾回收？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2集-对象存活算法引用计数法"><span class="nav-number">4.2.</span> <span class="nav-text">第2集 对象存活算法引用计数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第3集-对象存活算法可达性分析"><span class="nav-number">4.3.</span> <span class="nav-text">第3集 对象存活算法可达性分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第4集-算法内功之剖析标记清除"><span class="nav-number">4.4.</span> <span class="nav-text">第4集 算法内功之剖析标记清除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第5集-算法内功之剖析复制算法"><span class="nav-number">4.5.</span> <span class="nav-text">第5集 算法内功之剖析复制算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第6集-剖析标记整理算法与分代收集算法"><span class="nav-number">4.6.</span> <span class="nav-text">第6集 剖析标记整理算法与分代收集算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第5章-偷偷在干活的JVM垃圾收集器"><span class="nav-number">5.</span> <span class="nav-text">第5章 偷偷在干活的JVM垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1集-Serial收集器内容精讲"><span class="nav-number">5.1.</span> <span class="nav-text">第1集 Serial收集器内容精讲</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2集-ParNew收集器内容精讲"><span class="nav-number">5.2.</span> <span class="nav-text">第2集 ParNew收集器内容精讲</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第3集-Parallel-Scavenge收集器"><span class="nav-number">5.3.</span> <span class="nav-text">第3集 Parallel Scavenge收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第4集-你不得不懂的CMS收集器"><span class="nav-number">5.4.</span> <span class="nav-text">第4集 你不得不懂的CMS收集器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第5集-你不得不懂的G1收集器"><span class="nav-number">5.5.</span> <span class="nav-text">第5集 你不得不懂的G1收集器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第6章-简明扼要内存分配"><span class="nav-number">6.</span> <span class="nav-text">第6章 简明扼要内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1集-探索堆内存到底是怎么分配"><span class="nav-number">6.1.</span> <span class="nav-text">第1集 探索堆内存到底是怎么分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2集-大对象的分配和基本分配一样吗？"><span class="nav-number">6.2.</span> <span class="nav-text">第2集 大对象的分配和基本分配一样吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第3集-逃逸分析和栈上分配"><span class="nav-number">6.3.</span> <span class="nav-text">第3集 逃逸分析和栈上分配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第7章-中高级工程师必备线上虚拟机工具"><span class="nav-number">7.</span> <span class="nav-text">第7章 中高级工程师必备线上虚拟机工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1集-实战应用之使用虚拟机工具jps"><span class="nav-number">7.1.</span> <span class="nav-text">第1集 实战应用之使用虚拟机工具jps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2集-实战应用之使用虚拟机工具jstat与jinfo"><span class="nav-number">7.2.</span> <span class="nav-text">第2集 实战应用之使用虚拟机工具jstat与jinfo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第3集-实战应用之使用虚拟机工具jmap"><span class="nav-number">7.3.</span> <span class="nav-text">第3集 实战应用之使用虚拟机工具jmap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第4集-实战应用之使用虚拟机工具jhat"><span class="nav-number">7.4.</span> <span class="nav-text">第4集 实战应用之使用虚拟机工具jhat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第5集-实战应用之使用虚拟机工具jstack"><span class="nav-number">7.5.</span> <span class="nav-text">第5集 实战应用之使用虚拟机工具jstack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第6集-经典面试题之死锁"><span class="nav-number">7.6.</span> <span class="nav-text">第6集 经典面试题之死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第7集-经典面试题之线程状态"><span class="nav-number">7.7.</span> <span class="nav-text">第7集 经典面试题之线程状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第8章-中高级工程师必备虚拟机图形化工具"><span class="nav-number">8.</span> <span class="nav-text">第8章 中高级工程师必备虚拟机图形化工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1集-可视化虚拟机工具Jconsole介绍"><span class="nav-number">8.1.</span> <span class="nav-text">第1集 可视化虚拟机工具Jconsole介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2集-可视化虚拟机工具Jconsole内存监控验证"><span class="nav-number">8.2.</span> <span class="nav-text">第2集 可视化虚拟机工具Jconsole内存监控验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第3集-可视化虚拟机工具Jconsole线程验证"><span class="nav-number">8.3.</span> <span class="nav-text">第3集 可视化虚拟机工具Jconsole线程验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第4集-可视化虚拟机工具VisualVM"><span class="nav-number">8.4.</span> <span class="nav-text">第4集 可视化虚拟机工具VisualVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第5集-可视化虚拟机工具VisualVM实战"><span class="nav-number">8.5.</span> <span class="nav-text">第5集 可视化虚拟机工具VisualVM实战</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第9章-20W年薪面试必备实战篇"><span class="nav-number">9.</span> <span class="nav-text">第9章 20W年薪面试必备实战篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1集-教你如何剖析传统项目JVM问题"><span class="nav-number">9.1.</span> <span class="nav-text">第1集 教你如何剖析传统项目JVM问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2集-FullGC与Minor的区别频繁FullGC问题分析"><span class="nav-number">9.2.</span> <span class="nav-text">第2集 FullGC与Minor的区别频繁FullGC问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第3集-下载导致的频繁FullGC问题演练与解决"><span class="nav-number">9.3.</span> <span class="nav-text">第3集 下载导致的频繁FullGC问题演练与解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第4集-互联网项目常见的JVM问题剖析"><span class="nav-number">9.4.</span> <span class="nav-text">第4集 互联网项目常见的JVM问题剖析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第5集-互联网20W年薪学习秘笈分享"><span class="nav-number">9.5.</span> <span class="nav-text">第5集 互联网20W年薪学习秘笈分享</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1884,6 +1781,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
 
   
 
@@ -1899,6 +1800,8 @@
 
   
 
+
+  
 
 
   
