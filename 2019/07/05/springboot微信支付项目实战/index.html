@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="第一章项目介绍和前期准备  1、SpringBoot整合微信支付开发在线教育视频站点介绍    简介: 课程介绍，和小D课堂在线教育项目搭建开发 ￼     1、课程大纲介绍    2、微信支付项目效果演示    3、课程所需基础        springboot2基础+javaweb+mysql+maven    4、开发环境 jdk8+eclipse和Idea2、中大型公司里面项目开发流程讲">
+<meta name="keywords" content="springboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot微信支付项目实战">
+<meta property="og:url" content="http://yoursite.com/2019/07/05/springboot微信支付项目实战/index.html">
+<meta property="og:site_name" content="Sakura走过的路">
+<meta property="og:description" content="第一章项目介绍和前期准备  1、SpringBoot整合微信支付开发在线教育视频站点介绍    简介: 课程介绍，和小D课堂在线教育项目搭建开发 ￼     1、课程大纲介绍    2、微信支付项目效果演示    3、课程所需基础        springboot2基础+javaweb+mysql+maven    4、开发环境 jdk8+eclipse和Idea2、中大型公司里面项目开发流程讲">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-05T03:11:44.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="springboot微信支付项目实战">
+<meta name="twitter:description" content="第一章项目介绍和前期准备  1、SpringBoot整合微信支付开发在线教育视频站点介绍    简介: 课程介绍，和小D课堂在线教育项目搭建开发 ￼     1、课程大纲介绍    2、微信支付项目效果演示    3、课程所需基础        springboot2基础+javaweb+mysql+maven    4、开发环境 jdk8+eclipse和Idea2、中大型公司里面项目开发流程讲">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/05/springboot微信支付项目实战/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>springboot微信支付项目实战 | Sakura走过的路</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sakura走过的路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">想走到高处，便需每日勤勉</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/springboot微信支付项目实战/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sakura">
+      <meta itemprop="description" content="普通技术死肥宅">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sakura走过的路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">springboot微信支付项目实战
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-05 11:05:39 / 修改时间：11:11:44" itemprop="dateCreated datePublished" datetime="2019-07-05T11:05:39+08:00">2019-07-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/项目实战/" itemprop="url" rel="index"><span itemprop="name">项目实战</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>第一章项目介绍和前期准备 </p>
+<p>1、SpringBoot整合微信支付开发在线教育视频站点介绍<br>    简介: 课程介绍，和小D课堂在线教育项目搭建开发</p>
+<p>￼
+    1、课程大纲介绍<br>    2、微信支付项目效果演示<br>    3、课程所需基础<br>        springboot2基础+javaweb+mysql+maven<br>    4、开发环境 jdk8+eclipse和Idea<br>2、中大型公司里面项目开发流程讲解<br>    简介：讲解一个项目如何从零到上线，经历过怎样的步骤和流程</p>
+<a id="more"></a>        
+
+<p>￼
+    1、一个中大型项目的开发流程，从需求调研到项目上线</p>
+<pre><code>2、需求评审（产品/设计/前端/后端/测试/运营）-&gt;UI设计
+
+-&gt;开发(前端架构-&gt;开发/ 后端架构-&gt;开发)
+
+-&gt; 前端后端联调
+
+-&gt;项目提测
+
+-&gt;BugFix
+
+-&gt;回归测试
+
+-&gt;运维和开发部署上线
+
+-&gt;灰度发布
+
+-&gt;全量发布
+
+-&gt;维护和运营</code></pre><p>​        </p>
+<p>3、在线教育站点需求分析和架构设计<br>    简介：分析要开发的功能点和系统架构应该怎样架构</p>
+<p>￼
+    1、开发的功能:<br>                首页视频列表<br>                视频详情  （自己开发）<br>                微信扫码登录<br>                下单微信支付</p>
+<pre><code>我的订单列表 （自己开发）</code></pre><p>￼
+    2、架构设计</p>
+<pre><code>前端后端分离 -&gt; 方案：node渲染
+
+动静分离       -&gt; 方案：静态资源如html，js放在cdn或者nginx服务器上
+
+技术选择：
+    后端技术选择：Eclipse + Springboot2.0 + redis4.0+ HttpClient + mysql + ActiveMQ消息队列
+
+    前端技术选择：HTML5 + bootstrapt + jquery
+
+测试要求：
+    首页和视频详情页qps单机qps要求 2000+</code></pre><p>4、在线教育后台数据库设计<br>    简介：讲解后端数据库设计    ，字段冗余的好处，及常见注意事项</p>
+<p>￼
+    1、数据库设计：<br>     er图：<br>     实体对象：矩形<br>     属性：椭圆<br>     关系：菱形<br>                video表<br>                video_order表<br>                user表<br>                comment表<br>                chapter张<br>                episode节</p>
+<pre><code>2、字段冗余：
+        什么是字段冗余
+        什么时候选择字段冗余
+        优缺点
+
+3、Mysql测试数据导入</code></pre><p>￼
+    4、mysql客户端软件<br>        苹果系统：sequel pro<br>        windows：navicat</p>
+<p>￼
+    5、没有一成不变的架构，没有通用的设计方案<br>        一定跟业务结合</p>
+<p>第二章 项目基础环境搭建和逆向工程构建</p>
+<p>1、快速搭建SpringBoot项目，采用Eclipse<br>    简介：使用SpringBoot start在线生成项目基本框架并导入到eclipse中</p>
+<p>￼
+    1、站点地址：<a href="http://start.spring.io/" target="_blank" rel="noopener">http://start.spring.io/</a><br>    2、需要依赖<br>        spring-boot-starter-web<br>        spring-boot-starter-data-redis<br>        mybatis-spring-boot-starter<br>        mysql-connector-java</p>
+<pre><code>用什么包导什么包
+
+注意事项：
+如果一开始没加mysql的信息，则在pom.xml里面注解掉mysql相关依赖</code></pre><p>￼
+    3、启动项目hello world</p>
+<pre><code>4、访问入口：localhost:8080/test</code></pre><p>2、快速搭建SpringBoot项目，采用IDEA<br>    简介：使用SpringBoot start在线生成项目基本框架并导入到IDEA中</p>
+<p>￼
+    参考资料：<br>    IDEA使用文档<br>    <a href="http://wiki.jikexueyuan.com/project/intellij-idea-tutorial/" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/intellij-idea-tutorial/</a><br>3、热部署在Eclipse和IDE里面的使用<br>    简介：讲解热部署的好处及使用注意事项，在eclipse里面默认开启，在IDE里面默认关闭</p>
+<p>￼
+    1、增加依赖</p>
+<pre><code> &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;
+    &lt;optional&gt;true&lt;/optional&gt;
+&lt;/dependency&gt;
+
+2、eclipse热部署默认自动开启
+
+3、idea里面要设置
+    1、相关偏好里开启自动编译
+    2、Shift+Ctrl+Alt+/，选择Registry
+        选 compiler.automake.allow.when.app.running  
+        重启项目就可以了</code></pre><p>￼
+    参考：<br>        <a href="https://www.cnblogs.com/aqsunkai/p/6690574.html" target="_blank" rel="noopener">https://www.cnblogs.com/aqsunkai/p/6690574.html</a><br>        compiler.automake.allow.when.app.running<br>4、后端项目分层分包及资源文件处理<br>    简介：项目基本目录结构，包名称建立,配置文件建立</p>
+<p>￼
+    1、基本目录结构<br>        controller<br>        service<br>            impl<br>        mapper<br>        utils<br>        domain<br>        config<br>        interceoter<br>        dto<br>    2、application.properties配置文件<br>       配置启动端口<br>       server.port=8082<br>5、开源工具的优缺点选择和抽象方法的建议<br>    简介：讲解开源工具的好处和弊端，如pageHeper分页拦截器，tk自动生成工具，抽象方法的利弊等</p>
+<p>￼
+    1、开源工具<br>        好处：开发方便，使用简单，使用aop方式进行分页，只需要引入相关依赖，然后PageHelper.startPage(page, size);  开启分页</p>
+<pre><code>    弊端：对于分库分表等情况下使用有问题，深度分页逻辑判断会复杂
+
+    mysql资料：
+        深度分页常用案例：
+            https://www.cnblogs.com/lpfuture/p/5772055.html
+            https://blog.csdn.net/li772030428/article/details/52839987
+        推荐书籍：
+            https://book.douban.com/subject/23008813/
+
+2、封装的好坏
+    关于抽象和不抽象的选择，比如tk这些工具，通用mapper，service，controller
+    好处：
+        代码量大大减少，开发新模块可以马上进行使用
+    弊端：
+        对应过度封装，新手等比较难理解，不能保证团队里面所有人都有对应的水平，或者有高度封装的思想，也不是过度封装
+
+    课程案例：
+        分页采用pageHelper</code></pre><p>￼
+            封装通用工具类，如缓存操作等<br>                利于解耦，如切换缓存框架<br>6、Mysql逆向工程效率神器之使用IDE自动生成Java实体类<br>    简介：实战使用IDE根据Mysql自动生成java pojo实体类</p>
+<p>￼
+    1、IDEA连接数据库<br>        菜单View→Tool Windows→Database打开数据库工具窗口</p>
+<pre><code>2、左上角添加按钮“+”，选择数据库类型
+
+3、mysql主机，账户密码
+    119.23.28.97
+    root</code></pre><p>￼
+    4、通过IDEA生成实体类<br>        选中一张表，右键—&gt;Scripted Extensions—&gt;选择Generate POJOS.clj或者Generate POJOS.groovy，选择需要存放的路径，完成</p>
+<pre><code>    自定义包名 
+        net.xdclass.xdvideo.domain
+    常用类型
+        java.util.Date
+
+5、大家一定要遵守规范</code></pre><p>7、接口配置文件自动映射到属性和实体类配置<br>    简介：使用@value注解配置文件自动映射到属性和实体类</p>
+<p>￼
+        1、添加 @Component或者Configuration 注解；</p>
+<pre><code>2、使用 @PropertySource 注解指定配置文件位置；(属性名称规范: 大模块.子模块.属性名)
+    #=================================微信相关==================
+    #公众号
+    wxpay.appid=wx5beac15ca207cdd40c
+    wxpay.appsecret=554801238f17fdsdsdd6f96b382fe548215e9</code></pre><p>￼
+        3、必须 通过注入IOC对象Resource 进来 ， 才能在类中使用获取的配置文件值。<br>            @Autowired<br>            private WeChatConfig weChatConfig;</p>
+<pre><code>例子：
+    @Configuration
+    @PropertySource(value=&quot;classpath:application.properties&quot;)
+    public class WeChatConfig {
+
+        @Value(&quot;${wxpay.appid}&quot;)
+        private String appId;</code></pre><p>第三章 开发在线教育视频站点核心业务之视频列表相关接口开发</p>
+<p>1、整合Mybatis访问数据库和阿里巴巴数据源<br>    简介：整合mysql 加入mybatis依赖，和加入alibaba druid数据源</p>
+<p>￼
+    1、加入依赖(可以用 <a href="http://start.spring.io/" target="_blank" rel="noopener">http://start.spring.io/</a> 下载)</p>
+<p>￼
+    <!-- 引入starter--><br>    <dependency><br>        <groupid>org.mybatis.spring.boot</groupid><br>        <artifactid>mybatis-spring-boot-starter</artifactid><br>        <version>1.3.2</version><br>    </dependency></p>
+<pre><code>&lt;!-- MySQL的JDBC驱动包  --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;!-- 引入第三方数据源 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+    &lt;artifactId&gt;druid&lt;/artifactId&gt;
+    &lt;version&gt;1.1.6&lt;/version&gt;
+&lt;/dependency&gt;</code></pre><p>￼
+    2、加入配置文件</p>
+<pre><code>    #可以自动识别
+    #spring.datasource.driver-class-name =com.mysql.jdbc.Driver
+
+    spring.datasource.url=jdbc:mysql://localhost:3306/movie?useUnicode=true&amp;characterEncoding=utf-8
+    spring.datasource.username =root
+    spring.datasource.password =password
+    #如果不使用默认的数据源 （com.zaxxer.hikari.HikariDataSource）
+    spring.datasource.type =com.alibaba.druid.pool.DruidDataSource
+
+加载配置，注入到sqlSessionFactory等都是springBoot帮我们完成
+
+3、启动类增加mapper扫描
+
+    @MapperScan(&quot;net.xdclass.xdvideo.mapper&quot;)
+
+    VideoMapper类例子
+        @Select(&quot;SELECT * FROM video&quot;)
+        @Results({
+                @Result(column = &quot;create_time&quot;,property = &quot;createTime&quot;)  //javaType = java.util.Date.class
+        })
+        List&lt;Video&gt; getAll();
+
+4、开发mapper
+    参考语法 http://www.mybatis.org/mybatis-3/zh/java-api.html
+    xml配置：http://www.mybatis.org/mybatis-3/zh/configuration.html</code></pre><p>2、使用Mybatis注解开发视频列表增删改查<br>    讲解:使用Mybatis3.x注解方式 增删改查实操, 控制台打印sql语句</p>
+<p>￼
+    1、控制台打印sql语句        </p>
+<pre><code>    #增加打印sql语句，一般用于本地开发测试
+    mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl
+
+2、增加mapper代码        
+               @Select(&quot;select * from video&quot;)
+        //    @Results({
+        //            @Result(column = &quot;cover_img&quot;,property =   
+            &quot;coverImg&quot;),
+        //            @Result(column = &quot;create_time&quot;,property =     
+            &quot;createTime&quot;)
+        //    })
+            List&lt;Video&gt; findAll();
+            @Select(&quot;SELECT * FROM video WHERE id = #{id}&quot;)
+            Video findById(int id);
+            @Update(&quot;UPDATE video SET title=#{title} WHERE id =#{id}&quot;)
+           int update(Video Video);
+
+            @Delete(&quot;DELETE FROM video WHERE id =#{id}&quot;)
+            int delete(int id);
+
+            @Insert(&quot;INSERT INTO `video` ( `title`, `summary`, &quot; +
+                &quot;`cover_img`, `view_num`, `price`, `create_time`,&quot; +
+                    &quot; `online`, `point`)&quot; +
+                &quot;VALUES&quot; +
+                &quot;(#{title}, #{summary}, #{coverImg}, #{viewNum}, #{price},#{createTime}&quot; +
+                &quot;,#{online},#{point});&quot;)
+        @Options(useGeneratedKeys=true, keyProperty=&quot;id&quot;, keyColumn=&quot;id&quot;)
+        int save(Video video);
+
+ 3、保存保存
+  技巧：保存对象，获取数据库自增id 
+         @Options(useGeneratedKeys=true, keyProperty=&quot;id&quot;, keyColumn=&quot;id&quot;)
+
+ 4、技巧：
+    数据库字段下划线和Java实体类映射
+    # mybatis 下划线转驼峰配置,两者都可以
+    #mybatis.configuration.mapUnderscoreToCamelCase=true
+    mybatis.configuration.map-underscore-to-camel-case=true</code></pre><p>3 、Vidoe相关接口完善和规范协议<br>    简介：完善相关接口，协议规范讲解</p>
+<p>￼
+    1、save接口保存对象<br>        1)@RequestParam(value = “page”, defaultValue)int  videoId<br>            可以设置默认值，比如分页 </p>
+<pre><code>    2)@RequestBody 请求体映射实体类
+        需要指定http头为 content-type为application/json charset=utf-8
+
+2、统一入参协议</code></pre><p>4、动态Sql语句Mybaties SqlProvider<br>    简介：讲解什么是动态sql,及使用</p>
+<p>￼
+    1、<br>        @UpdateProvider(type=VideoSqlProvider.class,method=”updateVideo”)  更新<br>        @InsertProvider   插入<br>        @DeleteProvider   删除<br>        @SelectProvider   查询</p>
+<pre><code>2、写法
+
+public String updateVideo(final Video video){  
+   return new SQL(){{  
+           UPDATE("video");
+    
+           //条件写法.  
+           if(video.getAuthorId()!= null){  
+              SET("author_id=#{authorId}");  
+           }    
+           if(video.getTotalEpisode()!= null){
+               SET("total_episode=#{totalEpisode}");
+           }
+    
+           WHERE("id=#{id}");
+       }}.toString();  
+} </code></pre><p>3、参考资料<br>    <a href="https://www.cnblogs.com/zhangminghui/p/4903351.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhangminghui/p/4903351.html</a><br>5、PageHelper分页插件使用<br>    简介：讲解开源组件，mybaits分页插件的使用</p>
+<p>￼
+    1、引入依赖<br>        <!-- 分页插件依赖 --><br>        <dependency><br>            <groupid>com.github.pagehelper</groupid><br>            <artifactid>pagehelper</artifactid><br>            <version>4.1.0</version><br>        </dependency></p>
+<pre><code>2、增加配置文件
+            @Configuration
+        public class MyBatisConfig {
+            @Bean
+            public PageHelper pageHelper(){
+                PageHelper pageHelper = new PageHelper();
+                Properties p = new Properties();
+                p.setProperty(&quot;offsetAsPageNum&quot;,&quot;true&quot;);
+                p.setProperty(&quot;rowBoundsWithCount&quot;,&quot;true&quot;);
+                p.setProperty(&quot;reasonable&quot;,&quot;true&quot;);
+                pageHelper.setProperties(p);
+                return pageHelper;
+            }
+        }</code></pre><p>￼
+    3、包装类<br>            PageHelper.startPage(page, size);</p>
+<pre><code>PageInfo&lt;VideoOrder&gt; pageInfo = new PageInfo&lt;&gt;(list);</code></pre><p>￼
+    4、基本原理<br>        sqlsessionFactory -&gt; sqlSession-&gt; executor -&gt; mybatis sql statement<br>        通过mybatis plugin 增加拦截器，然后拼装分页<br>        org.apache.ibatis.plugin.Interceptor<br>第四章 开发在线教育视频站点核心业务之JWT微服务下的用户登录权限校验 </p>
+<p>1、单机和分布式应用的登录检验讲解<br>    简介：讲解单机和分布式应用下登录校验，session共享，分布式缓存使用</p>
+<p>￼
+    1、单机tomcat应用登录检验<br>        sesssion保存在浏览器和应用服务器会话之间<br>        用户登录成功，服务端会保证一个session，当然会给客户端一个sessionId，<br>        客户端会把sessionId保存在cookie中，每次请求都会携带这个sessionId</p>
+<pre><code>2、分布式应用中session共享
+    真实的应用不可能单节点部署，所以就有个多节点登录session共享的问题需要解决
+    1）tomcat支持session共享，但是有广播风暴；用户量大的时候，占用资源就严重，不推荐
+    2）使用redis存储token:
+            服务端使用UUID生成随机64位或者128位token，放入redis中，然后返回给客户端并存储在cookie中
+            用户每次访问都携带此token，服务端去redis中校验是否有此用户即可</code></pre><p>2、微服务下登录检验解决方案 JWT讲解<br>    简介：微服务下登录检验解决方案 JWT讲解 json wen token</p>
+<p>￼
+    1、JWT 是一个开放标准，它定义了一种用于简洁，自包含的用于通信双方之间以 JSON 对象的形式安全传递信息的方法。<br>        JWT 可以使用 HMAC 算法或者是 RSA 的公钥密钥对进行签名</p>
+<pre><code>    简单来说，就是通过一定规范来生成token，然后可以通过解密算法逆向解密token，这样就可以获取用户信息
+    {
+        id:888,
+        name:&apos;小D&apos;,
+        expire:10000
+    }
+
+    funtion 加密(object, appsecret){
+        xxxx
+        return base64( token);
+    }
+
+    function 解密(token ,appsecret){
+
+        xxxx
+        //成功返回true,失败返回false
+    }
+
+    优点：
+        1）生产的token可以包含基本信息，比如id、用户昵称、头像等信息，避免再次查库
+
+        2）存储在客户端，不占用服务端的内存资源
+
+    缺点：
+        token是经过base64编码，所以可以解码，因此token加密前的对象不应该包含敏感信息
+        如用户权限，密码等
+
+2、JWT格式组成 头部、负载、签名
+   header+payload+signature
+
+   头部：主要是描述签名算法
+   负载：主要描述是加密对象的信息，如用户的id等，也可以加些规范里面的东西，如iss签发者，exp 过期时间，sub 面向的用户
+   签名：主要是把前面两部分进行加密，防止别人拿到token进行base解密后篡改token
+
+3、关于jwt客户端存储
+    可以存储在cookie，localstorage和sessionStorage里面</code></pre><p>3、登录检验JWT实战之封装通用方法<br>    讲解：引入相关依赖并开发JWT工具类</p>
+<p>￼
+    1、加入相关依赖</p>
+<pre><code>    &lt;!-- JWT相关 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;
+        &lt;artifactId&gt;jjwt&lt;/artifactId&gt;
+        &lt;version&gt;0.7.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+2、开发生产token方法</code></pre><p>￼
+    3、开发检验token方法<br>第五章 开发在线教育视频站点核心业务之微信授权用户接口开发 </p>
+<p>1、数据信息安全–微信授权一键登录功能介绍</p>
+<p>￼
+简介：讲解登录方式优缺点和微信授权一键登录功能介绍<br>    1、手机号或者邮箱注册<br>        优点：<br>            1）企业获取了用户的基本资料信息，利于后续业务发展<br>                推送营销类信息<br>            2）用户可以用个手机号或者邮箱获取对应的app福利<br>                注册送优惠券<br>            3）反馈信息的时候方便，直接报手机号即可<br>                账户出问题，被盗等</p>
+<pre><code>缺点：
+    1）步骤多           
+    2）如果站点不安全，如站点被攻击，泄漏了个人信息，如手机号，密码等
+    3）少量不良企业贩卖个人信息，如手机号
+
+2、OAuth2.0一键授权登录
+    例子：
+        豆瓣：www.douban.com
+        小D课堂：www.xdclass.net
+
+    优点：
+        使用快捷，用户体验好，数据相对安全
+    缺点：
+        1、反馈问题麻烦，比较难知道唯一标识
+        2、如果是企业下面有多个应用，其中有应用不支持Auth2.0登录，则没法做到用户信息打通，积分不能复用等
+            如app接入了微信授权登录，但是网站没有，则打不通，
+            或者授权方只提供了一种终端授权，则信息无法打通，
+
+3、选择方式：
+    1）看企业和实际业务情况
+    2）务必区分，普通密码和核心密码</code></pre><p>2、微信扫一扫功能开发前期准备<br>        简介：讲解微信扫一扫功能相关开发流程和资料准备</p>
+<p>￼
+    1、微信开放平台介绍（申请里面的网站应用需要企业资料）<br>        网站:<a href="https://open.weixin.qq.com/" target="_blank" rel="noopener">https://open.weixin.qq.com/</a></p>
+<pre><code>2、什么是appid、appsecret、授权码code
+    appid和appsecret是 资源所有者向申请人分配的一个id和秘钥
+    code是授权凭证，A-&gt;B 发起授权，想获取授权用户信息，那a必须携带授权码，才可以向B获取授权信息
+
+    (你要从我这里拿东西出去，就必须带身份证)</code></pre><p>3、微信Oauth2.0交互流程讲解<br>    简介：讲解微信Oauth2.0交互流程</p>
+<p>￼
+    参考：<a href="https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&amp;verify=1&amp;id=open1419316505&amp;token=&amp;lang=zh_CN" target="_blank" rel="noopener">https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&amp;verify=1&amp;id=open1419316505&amp;token=&amp;lang=zh_CN</a><br>￼
+    1、区分角色 用户，第三应用，微信开放平台<br>        画图讲解</p>
+<pre><code>2、如果想看时序图知识，请跳转到微信支付章节，时序图知识讲解</code></pre><p>4、微信授权一键登录开发之授权URL获取<br>    简介：获取微信开放平台扫码连url地址</p>
+<p>￼
+1、增加结果工具类，JsonData;  增加application.properties配置</p>
+<pre><code>#微信开放平台配置
+wxopen.appid=
+wxopen.appsecret=
+#重定向url
+wxopen.redirect_url=http://test/pub/api/v1/wechat/user/callback1</code></pre><p>  wechatConfig里面增加属性</p>
+<p>/**</p>
+<ul>
+<li><p>微信开放平台二维码连接</p>
+</li>
+<li><p>/
+private final static String OPEN_QRCODE_URL= “<a href="https://open.weixin.qq.com/connect/qrconnect?appid=%s&amp;redirect_uri=%s&amp;response_type=code&amp;scope=snsapi_login&amp;state=%s#wechat_redirect&quot;" target="_blank" rel="noopener">https://open.weixin.qq.com/connect/qrconnect?appid=%s&amp;redirect_uri=%s&amp;response_type=code&amp;scope=snsapi_login&amp;state=%s#wechat_redirect&quot;</a>;
+￼<br>2、拼接url<br>5、HttpClient4.x工具获取使用<br>  简介：讲解httpClient4.x相关依赖，并封装基本方法。</p>
+<pre><code>   1、加入依赖
+&lt;dependency&gt;
+        &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+        &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
+        &lt;version&gt;4.5.3&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+        &lt;artifactId&gt;httpmime&lt;/artifactId&gt;
+        &lt;version&gt;4.5.2&lt;/version&gt;
+    &lt;/dependency&gt;</code></pre></li>
+</ul>
+<p>￼
+        <dependency><br>            <groupid>commons-codec</groupid><br>            <artifactid>commons-codec</artifactid><br>        </dependency><br>        <dependency><br>            <groupid>commons-logging</groupid><br>            <artifactid>commons-logging</artifactid><br>            <version>1.1.1</version><br>        </dependency><br>                <dependency><br>                <groupid>org.apache.httpcomponents</groupid><br>                <artifactid>httpcore</artifactid><br>        </dependency><br>￼
+    <!-- gson工具，封装http的时候使用 --><br>    <dependency><br>        <groupid>com.google.code.gson</groupid><br>        <artifactid>gson</artifactid><br>        <version>2.8.0</version><br>    </dependency></p>
+<p>2、封装工具类的使用<br>    封装doGet doPost<br>6、微信扫码登录回调本地域名映射工具Ngrock<br>        简介：讲解微信扫码回调本地域名ngrock讲解</p>
+<p>￼
+    1、为什么要用这个，微信扫码需要配置回调，需要配置对应的域名<br>       在本地电脑开发，微信没法回调，所以需要配置个地址映射，就是微信服务器<br>       可以通过这个地址访问当前开发电脑的地址</p>
+<pre><code>2、使用文档：
+    https://mp.weixin.qq.com/s/oakwABv56Jc6u450AHt9iA</code></pre><p>7、授权登录获取微信用户个人信息实战<br>        简介：讲解使用授权码code获取用户个人信息接口</p>
+<p>￼
+    关键点：看微信文档，字段尽量用拷贝</p>
+<pre><code>1、通过code获取access_token
+文档:
+    https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&amp;verify=1&amp;id=open1419316505&amp;token=7e1296c8174816ac988643825ae16f25d8c7e781&amp;lang=zh_CN
+
+2、通过access_token获取微信用户头像和昵称等基本信息
+
+文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&amp;verify=1&amp;id=open1419316518&amp;token=7e1296c8174816ac988643825ae16f25d8c7e781&amp;lang=zh_CN</code></pre><p>8、用户模块开发之保存微信用户信息<br>    简介：开发User数据访问层，保存微信用户信息</p>
+<p>￼
+    问题：<br>        微信回调 用户昵称乱码<br>        解决：<br>            nickname = new String(nickname.getBytes(“ISO-8859-1”), “UTF-8”);</p>
+<pre><code>1、封装User对象</code></pre><p>￼
+    2、插入数据库<br>        获取openid后，查询是否有此用户，如果有则不发请求去获取用户信息<br>        方法：保存用户，根据id查询用户，根据openid查询用户</p>
+<pre><code>3、mybatis参数注意
+    取值用 #{} ，别用${}，因为存在sql注入风险</code></pre><p>9、使用JWT生成用户Token回写客户端<br>    简介：讲解用户授权登录后，需要生成登录凭证重定向到页面上</p>
+<p>￼
+    1、获取当前页面访问地址</p>
+<pre><code>2、根据User基本信息生成token
+
+3、重定向到指定页面</code></pre><p>10、Springboot2.x用户登录拦截器开发实战<br>    简介：实战开发用户登录拦截器拦截器 LoginInterceptor</p>
+<p>￼
+    1、实现接口 LoginInterceptor implements HandlerInterceptor</p>
+<pre><code>2、重写preHandler
+     String accessToken = request.getHeader(&quot;token&quot;);
+    if(accessToken == null){
+        accessToken = request.getParameter(&quot;token&quot;);
+    }
+    if (accessToken != null ) {
+        Claims claims = JWTUtils.checkJWT(accessToken);
+        Integer id = (Integer)claims.get(&quot;id&quot;);
+        String  name = (String)claims.get(&quot;name&quot;);
+        request.setAttribute(&quot;user_id&quot;,id);
+        request.setAttribute(&quot;name&quot;,name);
+        //普通用户
+        return true;
+
+    }
+    return false;
+3、配置拦截器 
+@Configuration
+InterceptorConfig implements WebMvcConfigurer
+
+ @Override
+public void addInterceptors(InterceptorRegistry registry) {
+
+    registry.addInterceptor(new LoginInterceptor()).addPathPatterns(&quot;/user/api/v1/*/**&quot;);
+
+    WebMvcConfigurer.super.addInterceptors(registry);
+}</code></pre><p>￼
+    4、响应前端数据</p>
+<pre><code>public static void sendJsonMessage(HttpServletResponse response, Object obj) throws Exception {
+    Gson g = new Gson();
+    response.setContentType(&quot;application/json; charset=utf-8&quot;);
+    PrintWriter writer = response.getWriter();
+    writer.print(g.toJson(obj));
+    writer.close();
+    response.flushBuffer();
+}</code></pre><p>第六章 开发在线教育视频站点核心业务之从零基础接入 微信扫一扫网页支付 </p>
+<p>1、常用的第三方支付和聚合支付介绍<br>    简介：介绍常用的第三方支付和聚合支付</p>
+<p>￼
+1、什么是第三方支付<br>    第三方支付是指具备一定实力和信誉保障的独立机构，采用与各大银行签约的方式，通过与银行支付结算系统接口对接而促成交易双方进行交易的网络支付模式。</p>
+<pre><code>通俗的例子：  
+    支付宝，微信支付，百度钱包，PayPal（主要是欧美国家）
+
+    拉卡拉(中国最大线下便民金融服务提供商)
+
+优点：
+    1、支付平台降低了政府、企业、事业单位直连银行的成本，满足了企业专注发展在线业务的收付要求。
+
+    2、使用方便。对支付者而言，他所面对的是友好的界面，不必考虑背后复杂的技术操作过程
+
+缺点：
+    1、风险问题，
+    在电子支付流程中，资金都会在第三方支付服务商处滞留即出现所谓的资金沉淀，如缺乏有效的流动性管理，则可能存在资金安全和支付的风险
+
+    2、电子支付经营资格的认知、保护和发展问题</code></pre><p>￼
+2、什么是聚合支付<br>    解释：<br>        聚合支付是相对之前的第三方支付而言的，作为对第三方支付平台服务的拓展，第三方支付是介于银行和商户之间的，而聚合支付是介于第三方支付和商户之间</p>
+<pre><code>出现的场景：
+    一堆第三方支付出现，并通过大量的钱补贴线上商家使用它们的支付，导致商户收银台堆满各种
+    POS机器，扫码设备，商户还需要去各家支付公司申请账号，结算等</code></pre><p>￼
+    解决的问题：聚合支付公司提供的二维码，支付多种方式支付，不再是一种，各个公司的竞争，就是支付渠道和方式的支持</p>
+<pre><code>了解更多:https://www.zhihu.com/question/50426677</code></pre><p>2、申请微信支付介绍和不同场景的支付方式<br>    简介：介绍微信商户平台，支付方式和使用场景，申请微信支付流程</p>
+<p>￼
+    1、什么是微信商户平台：<br>        地址：<a href="https://pay.weixin.qq.com" target="_blank" rel="noopener">https://pay.weixin.qq.com</a><br>        提供给商家使用，用于查看交易数据，提现等信息</p>
+<pre><code>2、常用的支付方式 公众号支付，扫码支付，app支付，小程序支付
+    官方地址：https://pay.weixin.qq.com/wiki/doc/api/index.html
+    案例演示: https://pay.weixin.qq.com/guide/webbased_payment.shtml
+
+3、微信支付申请流程 https://pay.weixin.qq.com/guide/qrcode_payment.shtml
+    1）申请公众号(服务号)  认证费 300
+    2）开通微信支付    </code></pre><p>3、微信网站扫码支付介绍<br>    简介：讲解微信网页扫码支付<br>        1、扫码支付文档：<a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=2_2" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=2_2</a></p>
+<p>￼
+    2、名称理解</p>
+<pre><code>appid：公众号唯一标识
+appsecret：公众号的秘钥
+
+mch_id：商户号，申请微信支付的时候分配的
+key：支付交易过程生成签名的秘钥，设置路径 
+    微信商户平台(pay.weixin.qq.com)--&gt;账户中心--&gt;账户设置--&gt;API安全--&gt;密钥设置</code></pre><p>￼
+    3、和微信支付交互方式<br>        1、post方式提交<br>        2、xml格式的协议<br>        3、签名算法MD5</p>
+<pre><code>4、交互业务规则 先判断协议字段返回，再判断业务返回，最后判断交易状态
+5、接口交易单位为 分
+6、交易类型：JSAPI--公众号支付、NATIVE--原生扫码支付、APP--app支付</code></pre><p>￼
+        7、商户订单号规则：<br>            商户支付的订单号由商户自定义生成，仅支持使用字母、数字、中划线-、下划线_、竖线|、星号*这些英文半角字符的组合，请勿使用汉字或全角等特殊字符，微信支付要求商户订单号保持唯一性</p>
+<pre><code>8、安全规范：
+     签名算法：https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=4_3
+     校验工具：https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=20_1
+
+9、采用微信支付扫码模式二（不依赖商户平台设置回调url）</code></pre><p>4、互联网架构知识时序图讲解<br>    简介：讲解什么是时序图，为啥要看时序图</p>
+<p>￼
+    微信支付时序图 官方文档：<br>    <a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_5" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_5</a></p>
+<pre><code>1、什么是时序图
+    是一种UML交互图，描述了对象之间传递消息的时间顺序, 用来表示用例中的行为顺序, 是强调消息时间顺序的交互图;
+
+    通俗解释：就是交互流程图 (把大象装冰箱分几步)</code></pre><p>￼
+    2、时序图包括四个元素 对象(Object), 生命线(Lifeline), 激活(Activation), 消息(Message);</p>
+<pre><code>对象：时序图中的对象在交互中扮演的角色就是对象，使用矩形将对象名称包含起来, 名称下有下划线
+
+生命线：生命线是一条垂直的虚线, 这条虚线表示对象的存在, 在时序图中, 每个对象都有生命线
+
+激活：代表时序图中对象执行一项操作的时期, 表示该对象被占用以完成某个任务，当对象处于激活时期, 生命线可以拓宽为矩形
+
+消息：对象之间的交互是通过相互发消息来实现的，箭头上面标出消息名，一个对象可以请求（要求）另一个对象做某件事件
+消息从源对象指向目标对象，消息一旦发送便将控制从源对象转移到目标对象，息的阅读顺序是严格自上而下的
+
+消息交互中的实线：请求消息
+消息交互中的虚线：响应返回消息
+
+自己调用自己的方法：反身消息</code></pre><p>参考：<a href="https://www.cnblogs.com/langtianya/p/3825764.html" target="_blank" rel="noopener">https://www.cnblogs.com/langtianya/p/3825764.html</a><br>5、微信网页扫码支付时序图讲解和统一下单接口<br>    简介：讲解微信网页扫码支付时序图讲解和统一下单接口</p>
+<p>￼
+    1、时序图地址：<a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_5" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=6_5</a></p>
+<pre><code>2、统一下单接口介绍：
+    商户系统先调用该接口在微信支付服务后台生成预支付交易单，返回正确的预支付交易会话标识后再按扫码、JSAPI、APP等不同场景生成交易串调起支付。</code></pre><p>6、微信支付订单接口开发之订单增删改查<br>    简介: 微信扫码支付之统一下单接口开发之订单增删改查</p>
+<p>￼
+    1、Dao层VideoOrder增删改查开发<br>         @Insert(“”)<br>         @Options(useGeneratedKeys=true, keyProperty=”id”, keyColumn=”id”)   //keyProperty java对象的属性；keyColumn表示数据库的字段<br>         int insert(VideoOrder order);</p>
+<pre><code>@Select(&quot;SELECT * FROM video_order WHERE id = #{id}&quot;)
+VideoOrder findById(int id);
+
+@Select(&quot;SELECT * FROM video_order WHERE id = #{id}&quot;)
+VideoOrder findByOutTradeNo(String  outTradeNo);
+
+@Delete(&quot;DELETE FROM video_order WHERE id =#{id}&quot;)
+ int delete(int  id);</code></pre><p>7、IDE生成订单接口单元测试和断言开发</p>
+<p>￼
+简介:讲解使用IDE生成单元测试和基本流程<br>    1、 核心注解<br>        @RunWith(SpringRunner.class)<br>        @SpringBootTest</p>
+<pre><code>2、根据公司情况，写单元测试，核心接口一定要写，非核心的尽量写
+
+3、断言类型，可以细化</code></pre><p>8、微信统一下单接口开发之CommonUtils和WXpayUtils开发<br>    简介：封装常用工具类CommonUtils和WXpayUtils</p>
+<p>￼
+    从微信开发者文档获取部分代码 <a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=11_1" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=11_1</a></p>
+<p>1、CommonUtils包含方法 md5,uuid等<br>    //生成 uuid， 即用来标识一笔单，也用做 nonce_str<br>    public static String generateUUID() {<br>        return UUID.randomUUID().toString().replaceAll(“-“, “”)<br>                .substring(0, 32);<br>    }</p>
+<pre><code>//MD5工具类
+public static String MD5(String data)  {
+    try {
+        java.security.MessageDigest md = MessageDigest.getInstance(&quot;MD5&quot;);
+        byte[] array = md.digest(data.getBytes(&quot;UTF-8&quot;));
+        StringBuilder sb = new StringBuilder();
+        for (byte item : array) {
+            sb.append(Integer.toHexString((item &amp; 0xFF) | 0x100).substring(1, 3));
+        }
+        return sb.toString().toUpperCase();
+    } catch (Exception exception) {
+    }
+    return null;
+
+}</code></pre><p>2、WXPayUtil包含方法 xmlToMap，mapToXml，createSign，isCorrectPaySign<br>9、微信支付Controller下单API接口开发<br>    简介：讲解下单接口开发，开发技巧和支付配置文件设置</p>
+<p>￼
+    1、开发controller，开发期间不加入拦截器登录校验<br>    2、iputils工具类介绍<br>    3、加入微信支付配置</p>
+<pre><code>#微信商户平台
+wxpay.mer_id=1503808832
+wxpay.key=xdclasss20182018xdclass2018x018d
+wxpay.callback=16web.tunnel.qydev.com/pub/api/v1/wechat/order/callback1</code></pre><p>10、微信支付下单API接口和签名开发<br>    简介：下单接口开发和微信支付签名生成开发，并设置微信回调地址(用于用户微信支付成功后，通知我们服务器完成更新订单状态)</p>
+<p>￼
+    1、统一下单参数需要微信签名，签名规则如下<br>        文档地址：<a href="https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=4_3" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=4_3</a><br>        签名生成的通用步骤如下：</p>
+<pre><code>    第一步，设所有发送或者接收到的数据为集合M，将集合M内非空参数值的参数按照参数名ASCII码从小到大排序（字典序），使用URL键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串stringA。
+
+    第二步，在stringA最后拼接上key得到stringSignTemp字符串，并对stringSignTemp进行MD5运算，再将得到的字符串所有字符转换为大写，得到sign值signValue。key设置路径：微信商户平台(pay.weixin.qq.com)--&gt;账户设置--&gt;API安全--&gt;密钥设置
+
+    参数
+        SortedMap&lt;String, String&gt; params = new TreeMap&lt;&gt;();  
+        params.put(&quot;appid&quot;, wxPayConfig.getAppId());  //公众账号ID  
+        params.put(&quot;mch_id&quot;, wxPayConfig.getMchId());  //商户号    
+        params.put(&quot;nonce_str&quot;, CommonUtil.generateNonceStr());  //随机字符串    
+        params.put(&quot;body&quot;, videoOrder.getVideoTitle());  // 商品描述    
+        params.put(&quot;out_trade_no&quot;, videoOrder.getOutTradeNo()); //商户订单号,商户系统内部订单号，要求32个字符内，只能是数字、大小写字母_-|* 且在同一个商户号下唯一
+        params.put(&quot;total_fee&quot;, videoOrder.getTotalFee().toString());  //标价金额   分
+        params.put(&quot;spbill_create_ip&quot;, videoOrder.getIp());  
+        params.put(&quot;notify_url&quot;, wxPayConfig.getDomain()+wxPayConfig.getCallbackUrl()); //通知地址    
+        params.put(&quot;trade_type&quot;, &quot;NATIVE&quot;);  //交易类型 JSAPI 公众号支付 NATIVE 扫码支付 APP APP支付
+
+        //生成签名
+        String sign = WXPayUtil.createSign(params, wxPayConfig.getKey());
+        params.put(&quot;sign&quot;, sign); 
+        //参数转xml
+        String requestXMl = WXPayUtil.mapToXml(params);
+
+        生成签名后，通过工具去校验
+        https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=20_1
+
+2、测试地址：localhost:8081/api/v1/order/add?video_id=2</code></pre><p>￼
+    3、课程测试签名结果</p>
+<pre><code>sign: 85118C91DFCB052FB02AC183BF3D57D2
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;xml&gt;
+&lt;appid&gt;wx5beac15ca207cdd40c&lt;/appid&gt;
+&lt;body&gt;高级教程666&lt;/body&gt;
+&lt;mch_id&gt;1503808832&lt;/mch_id&gt;
+&lt;nonce_str&gt;b11446ae6fc14ddb89c9bc5fa291dc43&lt;/nonce_str&gt;
+&lt;notify_url&gt;16web.tunnel.qydev.com/pub/api/v1/wechat/order/callback1&lt;/notify_url&gt;
+&lt;out_trade_no&gt;2a273e4b9f8c453380a08c7930fc3b6b&lt;/out_trade_no&gt;
+&lt;sign&gt;85118C91DFCB052FB02AC183BF3D57D2&lt;/sign&gt;
+&lt;spbill_create_ip&gt;0:0:0:0:0:0:0:1&lt;/spbill_create_ip&gt;
+&lt;total_fee&gt;500&lt;/total_fee&gt;
+&lt;trade_type&gt;NATIVE&lt;/trade_type&gt;
+&lt;/xml&gt;</code></pre><p>11、调用微信统一下单接口实战<br>    简介：调用微信统一下单接口实战，发送post请求，并获取响应转成map，获取交易会话的二维码链接code_url。</p>
+<p>￼
+    1、配置统一下单接口<br>    2、发送请求验证<br>        微信统一下单响应<br>            <xml><return_code><!--[CDATA[SUCCESS]]--></return_code><br>            <return_msg><!--[CDATA[OK]]--></return_msg><br>            <appid><!--[CDATA[wx5beac15ca207c40c]]--></appid><br>            <mch_id><!--[CDATA[1503809911]]--></mch_id><br>            <nonce_str><!--[CDATA[Go5gDC2CYL5HvizG]]--></nonce_str><br>            <sign><!--[CDATA[BC62592B9A94F5C914FAAD93ADE7662B]]--></sign><br>            <result_code><!--[CDATA[SUCCESS]]--></result_code><br>            <prepay_id><!--[CDATA[wx262207318328044f75c9ebec2216783076]]--></prepay_id><br>            <trade_type><!--[CDATA[NATIVE]]--></trade_type><br>            <code_url><!--[CDATA[weixin://wxpay/bizpayurl?pr=hFq9fX6]]--></code_url><br>            </xml><br>    3、获取code_url</p>
+<pre><code>遇到问题，根据错误码解决
+https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_1</code></pre><p>12、谷歌二维码工具生成扫一扫支付二维码<br>    简介：使用谷歌二维码工具根据code_url生成扫一扫支付二维码</p>
+<p>￼
+    1、生成二维码返回页端     </p>
+<pre><code>加入依赖
+    &lt;!-- google二维码生成包 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.google.zxing&lt;/groupId&gt;
+        &lt;artifactId&gt;javase&lt;/artifactId&gt;
+        &lt;version&gt;3.3.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.google.zxing&lt;/groupId&gt;
+        &lt;artifactId&gt;core&lt;/artifactId&gt;
+        &lt;version&gt;2.0&lt;/version&gt;
+    &lt;/dependency&gt;</code></pre><p>￼
+    2、使用微信扫码完成支付<br>￼
+    参考资料：<a href="https://blog.csdn.net/shenfuli/article/details/68923393" target="_blank" rel="noopener">https://blog.csdn.net/shenfuli/article/details/68923393</a><br>            <a href="https://www.cnblogs.com/lanxiamo/p/6293580.html" target="_blank" rel="noopener">https://www.cnblogs.com/lanxiamo/p/6293580.html</a></p>
+<pre><code>二维码知识：https://coolshell.cn/articles/10590.html</code></pre><p>13、微信支付扫码回调开发实战<br>    简介：使用Ngrock本地接收微信回调，并开发回调接口</p>
+<p>￼
+    文档：<a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_7&amp;index=3" target="_blank" rel="noopener">https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_7&amp;index=3</a></p>
+<pre><code>1 、开发支付回调接口
+
+//读取回调输入流   
+  StringBuffer sb = new StringBuffer();    
+  InputStream inputStream = request.getInputStream();    
+  String line ;    
+  BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, &quot;UTF-8&quot;));    
+  while ((line = in.readLine()) != null){    
+      sb.append(line);  
+  }  
+  in.close();  
+  inputStream.close();  
+
+  //解析xml成map    
+  //{transaction_id=4200000141201805266700247361, nonce_str=cbb67accd8044c9ea48f3318b99d88e4, bank_type=CFT, openid=oiNKG03vVY4PHlGUEwT-ztFo8K8Y, sign=0575804DBE4E9FFF6545046FA062BC4C, fee_type=CNY, mch_id=1503809911, cash_fee=1, out_trade_no=78902e694bab485b8e7745b61e05dbfe, appid=wx5beac15ca207c40c, total_fee=1, trade_type=NATIVE, result_code=SUCCESS, time_end=20180526162759, is_subscribe=Y, return_code=SUCCESS}
+  Map&lt;String, String&gt; callbackMap = WXPayUtil.xmlToMap(sb.toString());    
+
+  //获取有序map    
+  SortedMap&lt;String, String&gt; sortedMap = CommonUtil.getSortedMap(callbackMap) ;  </code></pre><p>￼
+       回调数据：<br>        <xml><appid><!--[CDATA[wx5beac15ca207c40c]]--></appid><bank_type><!--[CDATA[CFT]]--></bank_type><cash_fee><!--[CDATA[10]]--></cash_fee><fee_type><!--[CDATA[CNY]]--></fee_type><is_subscribe><!--[CDATA[Y]]--></is_subscribe><mch_id><!--[CDATA[1503809911]]--></mch_id><nonce_str><!--[CDATA[de019d5f1e5d40649cd76de33f18b13e]]--></nonce_str><openid><!--[CDATA[oiNKG03vVY4PHlGUEwT-ztFo8K8Y]]--></openid><out_trade_no><!--[CDATA[4d8cea4a916440368583edaf82488624]]--></out_trade_no><result_code><!--[CDATA[SUCCESS]]--></result_code><return_code><!--[CDATA[SUCCESS]]--></return_code><sign><!--[CDATA[FA799B7DF70C2BAC558E839E01EF341A]]--></sign><time_end><!--[CDATA[20180626230347]]--></time_end><total_fee>10</total_fee><trade_type><!--[CDATA[NATIVE]]--></trade_type><transaction_id><!--[CDATA[4200000142201806264038572903]]--></transaction_id></xml></p>
+<pre><code>转成map:
+    {transaction_id=4200000142201806264038572903, nonce_str=de019d5f1e5d40649cd76de33f18b13e, bank_type=CFT, openid=oiNKG03vVY4PHlGUEwT-ztFo8K8Y, sign=FA799B7DF70C2BAC558E839E01EF341A, fee_type=CNY, mch_id=1503809911, cash_fee=10, out_trade_no=4d8cea4a916440368583edaf82488624, appid=wx5beac15ca207c40c, total_fee=10, trade_type=NATIVE, result_code=SUCCESS, time_end=20180626230347, is_subscribe=Y, return_code=SUCCESS}</code></pre><p>￼
+    2、注意点：</p>
+<pre><code>回调要用post方式，微信文档没有写回调的通知方式
+可以用这个注解 @RequestMapping
+
+问题：一定要看日志</code></pre><p>14、微信回调处理之更新订单状态和幂等性讲解<br>    简介：微信支付回调处理之更新订单状态和讲解什么是接口的幂等性<br>         微信回调通知规则（通知频率为15/15/30/180/1800/1800/1800/1800/3600，单位：秒）</p>
+<p>￼
+     幂等性: 同样的参数和值，不管调用你的接口多少次，响应结果都和调用一次是一样的</p>
+<pre><code>1、校验签名是否正确，防止伪造回调
+
+2、查询订单是否已经更新
+
+3、若没更新则更新订单状态
+
+4、回应微信，SUCCESS 或者 FAIL 
+    response.setContentType(&quot;text/xml&quot;);            
+    response.getWriter().println(&quot;success&quot;);</code></pre><p>15、微信支付之下单事务处理<br>    简介：讲解下单接口增加事务和常见的事务选择<br>        1、springboot开启事务，启动类里面增加 @EnableTransactionManagement<br>        2、需要事务的方法上加 @Transactional(propagation = Propagation.REQUIRED)<br>        3、aop的管理事务的好处和选择<br>            增，删，改  开启事务</p>
+<p>第七章，全局异常处理和日志打点统计</p>
+<p>1、配置SpringBoot2.0全局自定义异常<br>    简介：讲解springboot全局自定义异常的使用<br>        1、自定义异常类<br>        2、配置使用</p>
+<p>2、使用Logback整合SpringBoot打点日志<br>    简介：使用日志框架整合SpringBoot，并进行打点统计</p>
+<p>￼
+    1、日志不仅用于排查问题，查看应用运行情况</p>
+<pre><code>2、更可以用于统计,虽然统计可以通过数据库进行统计，但是存在风险，如果用日志，并且建立一个日志系统用于分析
+    这样就方便产品和运营人员进行查看分析数据</code></pre><p>￼
+    3、写日志，可以加缓冲buffer，也可也进行异步<br>    参考资料：<a href="https://blog.csdn.net/zhuyucheng123/article/details/21524549" target="_blank" rel="noopener">https://blog.csdn.net/zhuyucheng123/article/details/21524549</a><br>第八章：前后端联调和跨域处理</p>
+<p>￼
+1、联调效果演示和还原接口代码<br>    简介：演示完成联调的效果和还原后端部分接口</p>
+<pre><code>1、演示效果
+2、拦截器开启拦截
+3、下单接口还原配置</code></pre><p>￼
+2、动静分离之前端项目静态页面引入和相关js包使用<br>    简介：引入前端框架bootstrap和jquery，使用cdn</p>
+<pre><code>1、bootstap和jquery介绍和学习资料
+    bootstapt：https://v3.bootcss.com/getting-started/
+    jquery：http://www.w3school.com.cn/jquery/index.asp
+
+2、知识拓展：什么是内容分发网络，CDN的好处 </code></pre><p>￼
+3、前后端分离 跨域问题讲解<br>    简介：讲解什么是跨域和对应的处理方法</p>
+<pre><code>1、跨域：浏览器同源策略
+    1995年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。
+    最初，它的含义是指，A网页设置的 Cookie，B网页不能打开，除非这两个网页&quot;同源&quot;。所谓&quot;同源&quot;指的是&quot;三个相同&quot;
+
+    协议相同  http https
+    域名相同     www.xdcass.ent
+    端口相同  80  81
+
+    一句话：浏览器从一个域名的网页去请求另一个域名的资源时，域名、端口、协议任一不同，都是跨域
+
+    浏览器控制台跨域提示：
+    No &apos;Access-Control-Allow-Origin&apos; header is present on the requested resource. Origin &apos;null&apos; is therefore not allowed access.</code></pre><p>￼
+    2、解决方法<br>        1）JSONP<br>        2）Http响应头配置允许跨域</p>
+<pre><code>nginx层配置
+    https://www.cnblogs.com/hawk-whu/p/6725699.html</code></pre><p>￼
+            程序代码中处理<br>                SpringBoot自带配置</p>
+<pre><code>        @Configuration
+        public class Cors extends WebMvcConfigurerAdapter {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping(&quot;/**&quot;)
+                        .allowedOrigins(&quot;*&quot;)
+                        .allowedMethods(&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;OPTIONS&quot;, &quot;DELETE&quot;, &quot;PATCH&quot;)
+                        .allowCredentials(true).maxAge(3600);
+            }
+
+        }
+
+注意点:假如接口报错，则跨域配置不生效</code></pre><p>￼
+4、首页视频列表页联调<br>     简介：讲解首页视频列表页前端后端联调<br>￼
+5、微信扫一扫登录联调<br>    简介：讲解微信扫一扫登录前后端联调</p>
+<pre><code>1、回调需要配置ngrock和前端页面访问端口（通过工具 webstorm）
+
+2、微信回调，在url上携带参数
+
+    http://localhost:63343/static/index.html?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4ZGNsYXNzIiwiaWQiOjQsIm5hbWUiOiLlsI_kuowiLCJpbWciOiJodHRwOi8vdGhpcmR3eC5xbG9nby5jbi9tbW9wZW4vdmlfMzIvUTBqNFR3R1RmVExnS2dqazR0R2hQVmZKaWFWN1FqalNtVFl6dDVPd1hyMG55MnNqSkhmTjREWEV0WE04a25ZZ1JGSlQxQ2txRWpSbEtmUWh4cDdPd2FBLzEzMiIsImlhdCI6MTUzMDQyNzE3NCwiZXhwIjoxNTMxMDMxOTc0fQ.o5xpfafwPLIzUuOmo-nnFZQnvk6aEBp5KozPfq6TmiA&amp;head_img=http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLgKgjk4tGhPVfJiaV7QjjSmTYzt5OwXr0ny2sjJHfN4DXEtXM8knYgRFJT1CkqEjRlKfQhxp7OwaA/132&amp;name=%E5%B0%8F%E4%BA%8C
+
+3、CDN工具地址 
+
+    http://www.bootcdn.cn/jquery-cookie/</code></pre><p>￼
+6、网页扫码支付联调<br>    简介：讲解微信网页扫码支付联调<br>第九章，生产环境搭建部署</p>
+<p>1、云服务器介绍和阿里云服务器ECS服务器选购<br>    简介：什么是云服务器及目前主要的几个厂商介绍<br>    1、阿里云、腾讯云、亚马逊云<br>    阿里云：<a href="https://www.aliyun.com/" target="_blank" rel="noopener">https://www.aliyun.com/</a><br>    腾讯云：<a href="https://cloud.tencent.com/" target="_blank" rel="noopener">https://cloud.tencent.com/</a><br>    亚马逊云：<a href="https://aws.amazon.com/" target="_blank" rel="noopener">https://aws.amazon.com/</a></p>
+<p>2、阿里云服务器远程登录和常用工具<br>    简介：讲解阿里云服务器登录使用和常见终端工具<br>    1、windows工具   putty，xshell, security<br>        参考资料：<br>            <a href="https://jingyan.baidu.com/article/e75057f210c6dcebc91a89dd.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/e75057f210c6dcebc91a89dd.html</a><br>            <a href="https://www.jb51.net/softjc/88235.html" target="_blank" rel="noopener">https://www.jb51.net/softjc/88235.html</a></p>
+<p>￼
+2、苹果系统MAC： 通过终端登录<br>    ssh root@ip  回车后输入密码</p>
+<pre><code>ssh root@120.25.1.38</code></pre><p>￼
+3、可以尝试自己通过百度进行找文档， 安装mysql jdk  nginx maven git redis elk </p>
+<p>3、阿里云Linux服务器Centos7 安装JDK8环境</p>
+<p>￼
+    简介：Linux云服务器安装JDK1.8<br>    1、官方地址：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
+<pre><code>2、使用wget 下载或者本地上传
+    wget --no-check-certificate --no-cookies --header &quot;Cookie: oraclelicense=accept-securebackup-cookie&quot; 复制下载地址</code></pre><p>￼
+    示例：<br>        wget –no-check-certificate –no-cookies –header “Cookie: oraclelicense=accept-securebackup-cookie” <a href="http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jdk-8u171-linux-x64.tar.gz" target="_blank" rel="noopener">http://download.oracle.com/otn-pub/java/jdk/8u171-b11/512cd62ec5174c3487ac17c61aaa89e8/jdk-8u171-linux-x64.tar.gz</a></p>
+<pre><code>3、配置全局环境变量
+    解压：tar -zxvf jdk-8u171-linux-x64.tar.gz
+
+    vim  /etc/profile
+
+    配置
+    #set java environment
+    JAVA_HOME=/usr/local/soft/jdk1.8.0_171
+    CLASSPATH=$JAVA_HOME/lib/
+    PATH=$PATH:$JAVA_HOME/bin
+    export PATH JAVA_HOME CLASSPATH
+4、环境变量立刻生效
+    source /etc/profile
+
+5、查看安装情况
+    java -version</code></pre><p>￼
+    6、linux图形操作工具<br>        mac: filezilla<br>        windows: winscp<br>            资料：<a href="https://jingyan.baidu.com/article/ed2a5d1f346fd409f6be179a.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/ed2a5d1f346fd409f6be179a.html</a><br>4、互联网架构知识之网站部署上线基础准备<br>    简介：讲解应用部署到可以公网访问需要步骤</p>
+<p>￼
+     1、一个http请求的故事</p>
+<pre><code>2、什么是cname和a记录
+       A记录和CNAME只可以同时生效一个，A记录优先
+
+3、域名和ip的关系，DNS作用</code></pre><p>￼
+     参考资料：<br>        <a href="https://blog.csdn.net/benbenzhuhwp/article/details/44704319" target="_blank" rel="noopener">https://blog.csdn.net/benbenzhuhwp/article/details/44704319</a></p>
+<pre><code>https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=1&amp;ch=1&amp;tn=98050039_dg&amp;wd=%E4%B8%80%E4%B8%AAhttp%E8%AF%B7%E6%B1%82%E7%9A%84%E8%AF%A6%E7%BB%86%E8%BF%87%E7%A8%8B&amp;rsv_pq=80a65c5f00005961&amp;rsv_t=a5fcWreuJzILdSwr4gI8pFqlO7HSu5BlhjwalyVzPiV9w2L%2BKEj78pPi1Qn6Vx4wXxI&amp;rqlang=cn&amp;rsv_enter=1&amp;rsv_sug3=8&amp;rsv_sug1=8&amp;rsv_sug7=100&amp;sug=%25E4%25B8%2580%25E4%25B8%25AAhttp%25E8%25AF%25B7%25E6%25B1%2582%25E7%259A%2584%25E8%25AF%25A6%25E7%25BB%2586%25E8%25BF%2587%25E7%25A8%258B&amp;rsv_n=1</code></pre><p>5、域名购买和配置解析实战<br>    简介：域名购买和配置解析实战</p>
+<p>￼
+    1、购买域名，备案<br>        阿里云 备案地址：<a href="https://beian.aliyun.com/" target="_blank" rel="noopener">https://beian.aliyun.com/</a></p>
+<pre><code>2、购买服务器，阿里云，腾讯云，亚马逊云aws
+
+3、配置域名解析到服务器</code></pre><p>6、生产环境Linux服务器上Nginx介绍和安装<br>    简介：介绍什么是nginx服务器和快速安装</p>
+<p>￼
+    1、安装依赖<br>        yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</p>
+<pre><code>2、//创建一个文件夹
+    cd /usr/local
+    mkdir nginx
+    cd nginx
+    //下载tar包
+    wget http://nginx.org/download/nginx-1.13.7.tar.gz
+    tar -xvf nginx-1.13.7.tar.g
+
+    //执行命令
+    ./configure
+    make
+    make install 
+
+3、拓展知识：
+    https://blog.csdn.net/u012809062/article/details/70307130
+    https://blog.csdn.net/csdn_lqr/article/details/53334583</code></pre><p>第十章：线上环境应用集群部署</p>
+<p>   1、视频应用阿里云服务器部署安装<br>       简介:讲解视频站点应用部署到阿里云服务器</p>
+<pre><code>1、打包上传
+打包命令，各个系统通用，只要按照maven
+
+    mvn install -Dmaven.test.skip=true
+
+2、启动应用指定外部文件</code></pre><p>￼
+       nohup java -jar xxxx.jar  –Dspring.config.location=application.properties &amp;<br>            修改配置文件：<br>                    端口<br>                    开放平台微信登录回调域名<br>                微信支付回调域名<br>                数据库连接，账户密码</p>
+<p>​      </p>
+<p>​       </p>
+<p>   2、前后端启动接入Nginx代理服务器<br>        简介：讲解前后端应用部署和配置nginx访问</p>
+<pre><code>1.后端接口地址 16web.net:8080
+
+导入数据
+
+数据库配置
+119.23.28.97
+root
+Apple1688.        </code></pre><p>￼
+        阿里云机器：<br>        ssh <a href="mailto:root@47.106.120.173" target="_blank" rel="noopener">root@47.106.120.173</a></p>
+<pre><code>注意点：
+    微信登录授权域名
+    支付回调域名确认好
+    application.properties确认</code></pre><p>3、高可用处理之多节点集群部署<br>        简介：讲解springboot应用多节点部署和配置nginx访问</p>
+<p>￼
+    1、多节点启动<br>        节点1：120.79.160.143:8082/<br>        节点2：47.106.120.173:8080</p>
+<pre><code>2、配置nginx集群访问
+
+     upstream lbs {
+
+        server 120.79.160.143:8082;   
+        server 127.0.0.1:8080;      
+
+    }</code></pre><p>￼
+        location /api/ {<br>                proxy_pass <a href="http://lbs" target="_blank" rel="noopener">http://lbs</a>;
+                proxy_redirect default;<br>            }</p>
+<pre><code>location /user/ {
+        proxy_pass http://lbs;
+        proxy_redirect default;
+    }</code></pre><p>￼
+     3、重启nginx命令<br>        ./nginx -s reload<br>第十一章 课程总结和第二季课程介绍</p>
+<p>￼
+1、课程总结和常见问题处理</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/springboot/" rel="tag"># springboot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/28/shiro权限实战/" rel="next" title="shiro权限实战">
+                <i class="fa fa-chevron-left"></i> shiro权限实战
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Sakura</p>
+              <div class="site-description motion-element" itemprop="description">普通技术死肥宅</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sakura</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
