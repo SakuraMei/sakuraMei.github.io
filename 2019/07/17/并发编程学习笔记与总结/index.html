@@ -94,21 +94,25 @@
 
 
 
-  <meta name="description" content="并发编程学习笔记与总结1. 线程生命周期以及start方法源码解析1. 线程生命周期 说明： 线程共包括以下5种状态。  新建状态(New)         : 线程对象被创建后，就进入了新建状态。例如，Thread thread = new Thread()。 就绪状态(Runnable): 也被称为“可执行状态”。线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。例">
+  <meta name="description" content="1. 线程生命周期以及start方法源码解析1. 线程生命周期 说明： 线程共包括以下5种状态。  新建状态(New)         : 线程对象被创建后，就进入了新建状态。例如，Thread thread = new Thread()。 就绪状态(Runnable): 也被称为“可执行状态”。线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。例如，thread.st">
 <meta name="keywords" content="并发编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发编程学习笔记与总结">
 <meta property="og:url" content="http://yoursite.com/2019/07/17/并发编程学习笔记与总结/index.html">
 <meta property="og:site_name" content="Sakura走过的路">
-<meta property="og:description" content="并发编程学习笔记与总结1. 线程生命周期以及start方法源码解析1. 线程生命周期 说明： 线程共包括以下5种状态。  新建状态(New)         : 线程对象被创建后，就进入了新建状态。例如，Thread thread = new Thread()。 就绪状态(Runnable): 也被称为“可执行状态”。线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。例">
+<meta property="og:description" content="1. 线程生命周期以及start方法源码解析1. 线程生命周期 说明： 线程共包括以下5种状态。  新建状态(New)         : 线程对象被创建后，就进入了新建状态。例如，Thread thread = new Thread()。 就绪状态(Runnable): 也被称为“可执行状态”。线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。例如，thread.st">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://images0.cnblogs.com/blog/497634/201312/18152411-a974ea82ebc04e72bd874c3921f8bfec.jpg">
-<meta property="og:image" content="http://yoursite.com/home/sakura/.config/Typora/typora-user-images/1563354891313.png">
-<meta property="og:updated_time" content="2019-07-17T13:20:05.792Z">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/006folcMly1g5bx30en7zj30jg0dc0v9.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/006folcMly1g5bx6np4yfj31hc0u0tfw.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/006folcMly1g5bx6j5dqyj312v0pejvv.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/006folcMly1g5bx6d9c9uj312i0py41s.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/006folcMly1g5bx68lfgjj31270p7dih.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/006folcMly1g5bx62ul0gj312e0n2787.jpg">
+<meta property="og:updated_time" content="2019-07-25T03:30:28.812Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并发编程学习笔记与总结">
-<meta name="twitter:description" content="并发编程学习笔记与总结1. 线程生命周期以及start方法源码解析1. 线程生命周期 说明： 线程共包括以下5种状态。  新建状态(New)         : 线程对象被创建后，就进入了新建状态。例如，Thread thread = new Thread()。 就绪状态(Runnable): 也被称为“可执行状态”。线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。例">
-<meta name="twitter:image" content="https://images0.cnblogs.com/blog/497634/201312/18152411-a974ea82ebc04e72bd874c3921f8bfec.jpg">
+<meta name="twitter:description" content="1. 线程生命周期以及start方法源码解析1. 线程生命周期 说明： 线程共包括以下5种状态。  新建状态(New)         : 线程对象被创建后，就进入了新建状态。例如，Thread thread = new Thread()。 就绪状态(Runnable): 也被称为“可执行状态”。线程对象被创建后，其它线程调用了该对象的start()方法，从而来启动该线程。例如，thread.st">
+<meta name="twitter:image" content="http://wx3.sinaimg.cn/mw690/006folcMly1g5bx30en7zj30jg0dc0v9.jpg">
 
 
 
@@ -368,12 +372,24 @@
                 
               
 
-              <time title="创建时间：2019-07-17 21:16:55 / 修改时间：21:20:05" itemprop="dateCreated datePublished" datetime="2019-07-17T21:16:55+08:00">2019-07-17</time>
+              <time title="创建时间：2019-07-17 21:16:55" itemprop="dateCreated datePublished" datetime="2019-07-17T21:16:55+08:00">2019-07-17</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-25 11:30:28" itemprop="dateModified" datetime="2019-07-25T11:30:28+08:00">2019-07-25</time>
               
             
           </span>
@@ -425,7 +441,7 @@
       
 
       
-        <h1 id="并发编程学习笔记与总结"><a href="#并发编程学习笔记与总结" class="headerlink" title="并发编程学习笔记与总结"></a>并发编程学习笔记与总结</h1><h3 id="1-线程生命周期以及start方法源码解析"><a href="#1-线程生命周期以及start方法源码解析" class="headerlink" title="1. 线程生命周期以及start方法源码解析"></a>1. 线程生命周期以及start方法源码解析</h3><h4 id="1-线程生命周期"><a href="#1-线程生命周期" class="headerlink" title="1. 线程生命周期"></a>1. 线程生命周期</h4><p><img src="https://images0.cnblogs.com/blog/497634/201312/18152411-a974ea82ebc04e72bd874c3921f8bfec.jpg" alt="img"></p>
+        <h3 id="1-线程生命周期以及start方法源码解析"><a href="#1-线程生命周期以及start方法源码解析" class="headerlink" title="1. 线程生命周期以及start方法源码解析"></a>1. 线程生命周期以及start方法源码解析</h3><h4 id="1-线程生命周期"><a href="#1-线程生命周期" class="headerlink" title="1. 线程生命周期"></a>1. 线程生命周期</h4><p><img src="http://wx3.sinaimg.cn/mw690/006folcMly1g5bx30en7zj30jg0dc0v9.jpg" alt="img"></p>
 <p><strong>说明</strong>：
 线程共包括以下5种状态。</p>
 <ol>
@@ -438,7 +454,7 @@
 <a id="more"></a>
 
 <h4 id="2-线程Thread类start方法源码解析"><a href="#2-线程Thread类start方法源码解析" class="headerlink" title="2.线程Thread类start方法源码解析"></a>2.线程Thread类start方法源码解析</h4><p>线程的start方法是一个设计巧妙的模板方法，提供创建创建线程的功能，通过本地方法start0调用Thread子类重写的run方法，从而实现不同的业务逻辑</p>
-<p><img src="/home/sakura/.config/Typora/typora-user-images/1563354891313.png" alt="1563354891313"></p>
+<p><img src="http://wx1.sinaimg.cn/mw690/006folcMly1g5bx6np4yfj31hc0u0tfw.jpg" alt="1563354891313"></p>
 <h4 id="3-相关总结"><a href="#3-相关总结" class="headerlink" title="3.相关总结"></a>3.相关总结</h4><ul>
 <li>java应用程序的main函数是一个线程，是被jvm启动的时候调用，线程的名字叫做main</li>
 <li>实现一个线程，必须创建Thread实例，override run方法，并且调用start方法</li>
@@ -470,7 +486,35 @@ Thread 是类，而Runnable是接口；Thread本身是实现了Runnable接口的
 
 <p><strong>结果说明</strong>：
 (01) 和上面“MyThread继承于Thread”不同；这里的MyThread实现了Thread接口。<br>(02) 主线程main创建并启动3个子线程，而且这3个子线程都是基于“mt这个Runnable对象”而创建的。运行结果是这3个子线程一共卖出了10张票。这说明它们是共享了MyThread接口的。</p>
-<h4 id="4-相关总结"><a href="#4-相关总结" class="headerlink" title="4.相关总结"></a>4.相关总结</h4>
+<h4 id="4-相关总结"><a href="#4-相关总结" class="headerlink" title="4.相关总结"></a>4.相关总结</h4><ul>
+<li>Thread本身是实现了Runnable接口的类。我们知道“一个类只能有一个父类，但是却能实现多个接口”，因此Runnable具有更好的扩展性。</li>
+<li>Runnable还可以用于“资源的共享”。即，多个线程都是基于某一个Runnable对象建立的，它们会共享Runnable对象上的资源。通常，建议通过“Runnable”实现多线程！</li>
+<li>Runnable的与Thread的设计思想类似与设计模式中的策略模式</li>
+</ul>
+<h3 id="3-Thread类的构造函数"><a href="#3-Thread类的构造函数" class="headerlink" title="3.Thread类的构造函数"></a>3.Thread类的构造函数</h3><h4 id="1-相关总结"><a href="#1-相关总结" class="headerlink" title="1.相关总结"></a>1.相关总结</h4><ul>
+<li><p>创建线程对象Thread,默认有一个线程名，以Thread-开头，从0开始计数</p>
+<p>构造函数 Thread()</p>
+<p>Thread-0 Thread-1 Thread-2 ……</p>
+<p><img src="http://wx3.sinaimg.cn/mw690/006folcMly1g5bx6j5dqyj312v0pejvv.jpg" alt="1563417187883"></p>
+</li>
+<li><p>如果在构造Thread的时候没有传递Runnable或者没有复写Thread的run方法，该Thread将不会调用任何东西，如果传递了Runnable接口的实例，或者复写了Thread的run方法，则会执行该方法的逻辑单元（逻辑代码）</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/006folcMly1g5bx6d9c9uj312i0py41s.jpg" alt="1563418161155"></p>
+</li>
+<li><p>如果构造线程对象时未传入ThreadGroup,Thread会默认获取父线程的ThreadGroup作为该线程的ThreadGroup，此时子线程和父线程将会在同一个ThreadGroup中</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/006folcMly1g5bx68lfgjj31270p7dih.jpg" alt="1563419043788"></p>
+</li>
+<li><p>构造Thread的时候传入stacksize代表着该线程占用的stack大小，如果没有指定satacksize的大小，则默认为0,0代表着会忽略该参数，该参数会被JNI函数去使用。</p>
+<p>需要注意：该参数在一些平台有效，在有些平台则无效</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/006folcMly1g5bx62ul0gj312e0n2787.jpg" alt="1563424499362"></p>
+</li>
+</ul>
+<h3 id="4-sleep与wait方法的区别"><a href="#4-sleep与wait方法的区别" class="headerlink" title="4.sleep与wait方法的区别"></a>4.sleep与wait方法的区别</h3><h4 id="1-相关总结-1"><a href="#1-相关总结-1" class="headerlink" title="1.相关总结"></a>1.相关总结</h4><ul>
+<li>sleep是Thread类的方法，但是wait是Object类的方法</li>
+<li>sleep不会释放锁资源，但是wait会释放锁资源并且加入到waitset中</li>
+<li>使用sleep方法不依赖于monitor,但是wait方法依赖于monitor</li>
+<li>sleep不需要被唤醒，但是wait需要</li>
+</ul>
+
       
     </div>
 
@@ -674,7 +718,7 @@ Thread 是类，而Runnable是接口；Thread本身是实现了Runnable接口的
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#并发编程学习笔记与总结"><span class="nav-number">1.</span> <span class="nav-text">并发编程学习笔记与总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-线程生命周期以及start方法源码解析"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 线程生命周期以及start方法源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-线程生命周期"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1. 线程生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-线程Thread类start方法源码解析"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2.线程Thread类start方法源码解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-相关总结"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">3.相关总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-常用的实现多线程的两种方式：Thread-和-Runnable"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.常用的实现多线程的两种方式：Thread 和 Runnable</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Thread和Runnable简介"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1.Thread和Runnable简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Thread和Runnable的异同点"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2.Thread和Runnable的异同点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Thread和Runnable的多线程示例"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">3.Thread和Runnable的多线程示例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Thread的多线程实例"><span class="nav-number">1.0.2.3.1.</span> <span class="nav-text">1.Thread的多线程实例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Runnable的多线程实例"><span class="nav-number">1.0.2.3.2.</span> <span class="nav-text">2.Runnable的多线程实例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-相关总结"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">4.相关总结</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-线程生命周期以及start方法源码解析"><span class="nav-number">1.</span> <span class="nav-text">1. 线程生命周期以及start方法源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-线程生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">1. 线程生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-线程Thread类start方法源码解析"><span class="nav-number">1.2.</span> <span class="nav-text">2.线程Thread类start方法源码解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-相关总结"><span class="nav-number">1.3.</span> <span class="nav-text">3.相关总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-常用的实现多线程的两种方式：Thread-和-Runnable"><span class="nav-number">2.</span> <span class="nav-text">2.常用的实现多线程的两种方式：Thread 和 Runnable</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Thread和Runnable简介"><span class="nav-number">2.1.</span> <span class="nav-text">1.Thread和Runnable简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Thread和Runnable的异同点"><span class="nav-number">2.2.</span> <span class="nav-text">2.Thread和Runnable的异同点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Thread和Runnable的多线程示例"><span class="nav-number">2.3.</span> <span class="nav-text">3.Thread和Runnable的多线程示例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Thread的多线程实例"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.Thread的多线程实例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-Runnable的多线程实例"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.Runnable的多线程实例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-相关总结"><span class="nav-number">2.4.</span> <span class="nav-text">4.相关总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Thread类的构造函数"><span class="nav-number">3.</span> <span class="nav-text">3.Thread类的构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-相关总结"><span class="nav-number">3.1.</span> <span class="nav-text">1.相关总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-sleep与wait方法的区别"><span class="nav-number">4.</span> <span class="nav-text">4.sleep与wait方法的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-相关总结-1"><span class="nav-number">4.1.</span> <span class="nav-text">1.相关总结</span></a></li></ol></li></ol></div>
             
 
           </div>
